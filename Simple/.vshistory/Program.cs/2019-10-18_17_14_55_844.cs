@@ -1,5 +1,7 @@
+using System;
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 
 namespace Simple
@@ -49,11 +51,11 @@ namespace Simple
                         // Handle requests up to 50 MB
                         serverOptions.Limits.MaxRequestBodySize = 52428800;
 
-                        //serverOptions.Limits.MinRequestBodyDataRate =
-                        //     new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
+                        serverOptions.Limits.MinRequestBodyDataRate =
+                             new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
 
-                        //serverOptions.Limits.MinResponseDataRate =
-                        //    new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
+                        serverOptions.Limits.MinResponseDataRate =
+                            new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
                     })
                     //.UseKestrel(options =>
                     //{

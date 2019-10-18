@@ -1,9 +1,12 @@
+using System;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -132,29 +135,29 @@ namespace Simple
                 endpoints.MapRazorPages();
             });
 
-            //app.Run(async (context) =>
-            //{
-            //    context.Features.Get<IHttpMaxRequestBodySizeFeature>()
-            //        .MaxRequestBodySize = 10 * 1024;
+            app.Run(async (context) =>
+            {
+                context.Features.Get<IHttpMaxRequestBodySizeFeature>()
+                    .MaxRequestBodySize = 10 * 1024;
 
-            //    var minRequestRateFeature =
-            //        context.Features.Get<IHttpMinRequestBodyDataRateFeature>();
+                var minRequestRateFeature =
+                    context.Features.Get<IHttpMinRequestBodyDataRateFeature>();
 
-            //    var minResponseRateFeature =
-            //        context.Features.Get<IHttpMinResponseDataRateFeature>();
+                var minResponseRateFeature =
+                    context.Features.Get<IHttpMinResponseDataRateFeature>();
 
-            //    if (minRequestRateFeature != null)
-            //    {
-            //        minRequestRateFeature.MinDataRate = new MinDataRate(
-            //            bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
-            //    }
+                if (minRequestRateFeature != null)
+                {
+                    minRequestRateFeature.MinDataRate = new MinDataRate(
+                        bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
+                }
 
-            //    if (minResponseRateFeature != null)
-            //    {
-            //        minResponseRateFeature.MinDataRate = new MinDataRate(
-            //            bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
-            //    }
-            //});
+                if (minResponseRateFeature != null)
+                {
+                    minResponseRateFeature.MinDataRate = new MinDataRate(
+                        bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
+                }
+            });
         }
     }
 }

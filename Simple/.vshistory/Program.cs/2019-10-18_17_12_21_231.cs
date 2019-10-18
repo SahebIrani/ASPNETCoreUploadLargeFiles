@@ -1,5 +1,7 @@
+using System;
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 
 namespace Simple
@@ -36,12 +38,12 @@ namespace Simple
                     .ConfigureKestrel((context, serverOptions) =>
                     {
                         //Set Upload Timeout
-                        //serverOptions.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(120);
-                        //serverOptions.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(120);
+                        serverOptions.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(120);
+                        serverOptions.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(120);
 
                         //serverOptions.Limits.MaxRequestBodySize = 500_000_000;
-                        //serverOptions.Limits.MaxResponseBufferSize = null;
-                        //serverOptions.Limits.MaxResponseBufferSize = null;
+                        serverOptions.Limits.MaxResponseBufferSize = null;
+                        serverOptions.Limits.MaxResponseBufferSize = null;
 
                         // Handle requests up to 200 MB
                         //serverOptions.Limits.MaxRequestBodySize = 209715200;
@@ -49,17 +51,17 @@ namespace Simple
                         // Handle requests up to 50 MB
                         serverOptions.Limits.MaxRequestBodySize = 52428800;
 
-                        //serverOptions.Limits.MinRequestBodyDataRate =
-                        //     new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
+                        serverOptions.Limits.MinRequestBodyDataRate =
+                             new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
 
-                        //serverOptions.Limits.MinResponseDataRate =
-                        //    new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
+                        serverOptions.Limits.MinResponseDataRate =
+                            new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
                     })
-                    //.UseKestrel(options =>
-                    //{
-                    //    // Handle requests up to 50 MB
-                    //    options.Limits.MaxRequestBodySize = 52428800;
-                    //})
+                    .UseKestrel(options =>
+                    {
+                        // Handle requests up to 50 MB
+                        options.Limits.MaxRequestBodySize = 52428800;
+                    })
                     .UseStartup<Startup>();
                 });
     }
