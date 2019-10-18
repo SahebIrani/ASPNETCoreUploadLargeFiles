@@ -1,0 +1,59 @@
+namespace Simple.Pages.Shared
+{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a asp-page="/Index">Home</a></li>
+                <li>
+                    Database upload examples
+                    <ul>
+                        <li><a asp-page="/BufferedSingleFileUploadDb">Upload one buffered file with one file upload control</a></li>
+                        <li><a asp-page="/BufferedMultipleFileUploadDb">Upload multiple buffered files with one file upload control</a></li>
+                        <li><a asp-page="/BufferedDoubleFileUploadDb">Upload two buffered files with two file upload controls</a></li>
+                        <li><a asp-page="/StreamedSingleFileUploadDb">Stream a file with AJAX to a controller endpoint</a></li>
+                    </ul>
+                </li>
+                <li>
+                    Physical storage upload examples
+                    <ul>
+                        <li><a asp-page="/BufferedSingleFileUploadPhysical">Upload one buffered file with one file upload control</a></li>
+                        <li><a asp-page="/BufferedMultipleFileUploadPhysical">Upload multiple buffered files with one file upload control</a></li>
+                        <li><a asp-page="/BufferedDoubleFileUploadPhysical">Upload two buffered files with two file upload controls</a></li>
+                        <li><a asp-page="/StreamedSingleFileUploadPhysical">Stream a file with AJAX to a controller endpoint</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+}
