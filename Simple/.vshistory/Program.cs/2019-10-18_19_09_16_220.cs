@@ -52,8 +52,8 @@ namespace Simple
                         // Handle requests up to 4 GB 4294967296
                         //InvalidDataException: Multipart body length limit 134217728 exceeded.
                         serverOptions.Limits.MaxRequestBodySize = long.MaxValue;
-                        serverOptions.Limits.MaxResponseBufferSize = null;
-                        serverOptions.Limits.MaxResponseBufferSize = null;
+                        serverOptions.Limits.MaxResponseBufferSize = long.MaxValue;
+                        serverOptions.Limits.MaxResponseBufferSize = long.MaxValue;
 
                         //serverOptions.Limits.MinRequestBodyDataRate =
                         //     new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));

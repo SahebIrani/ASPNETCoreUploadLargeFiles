@@ -16,11 +16,9 @@ namespace Simple.Controllers
         [HttpPost]
         //To understand the problem, run the application and try to upload a file with larger size, say 100 MB.
         //The[RequestSizeLimit] attribute sets the maximum length of a request in bytes whereas[RequestFormLimits] sets the maximum length for multipart body length.The following code shows the Upload() action decorated with these attributes:
-        //200 MB 209715200
-        //[RequestFormSizeLimit(500, 1024 * 1024 * 25)] //500 - ValueCount Limit, 25 MB MaxBodyPartLengthLimit
-        [RequestFormLimits(MultipartBodyLengthLimit = 4294967296)]
-        [RequestSizeLimit(4294967296)]
-        public async System.Threading.Tasks.Task<IActionResult> UploadFileAsync(
+        //[RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
+        //[RequestSizeLimit(209715200)]
+        public async System.Threading.Tasks.Task<IActionResult> UploadAsync(
             IFormFile file,
             [FromServices] IWebHostEnvironment env)
         {
@@ -70,33 +68,6 @@ namespace Simple.Controllers
                 }
             }
 
-
-            return Ok();
-        }
-
-        [HttpPost("/api/file")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
-        public IActionResult GetFile([FromServices] IHttpContextAccessor contextAccessor,
-         [FromServices] IWebHostEnvironment environment)
-        {
-            //save the file
-            var files = Request.Form.Files;
-            foreach (var file in files)
-            {
-                var memoryStream = new MemoryStream();
-                file.CopyTo(memoryStream);
-
-                var fileStream = System.IO.File.Create(
-                    $"{environment.WebRootPath}/images/background/{file.FileName}", (int)file.Length,
-                    FileOptions.None);
-                fileStream.Write(memoryStream.ToArray(), 0, (int)file.Length);
-
-                fileStream.Flush();
-                fileStream.Dispose();
-
-                memoryStream.Flush();
-                memoryStream.Dispose();
-            }
 
             return Ok();
         }

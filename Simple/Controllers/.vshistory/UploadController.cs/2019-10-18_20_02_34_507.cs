@@ -75,7 +75,6 @@ namespace Simple.Controllers
         }
 
         [HttpPost("/api/file")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         public IActionResult GetFile([FromServices] IHttpContextAccessor contextAccessor,
          [FromServices] IWebHostEnvironment environment)
         {

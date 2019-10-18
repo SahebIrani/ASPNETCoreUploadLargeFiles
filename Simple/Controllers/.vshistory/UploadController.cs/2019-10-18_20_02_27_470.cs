@@ -75,9 +75,8 @@ namespace Simple.Controllers
         }
 
         [HttpPost("/api/file")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         public IActionResult GetFile([FromServices] IHttpContextAccessor contextAccessor,
-         [FromServices] IWebHostEnvironment environment)
+         [FromServices] IHostingEnvironment environment)
         {
             //save the file
             var files = Request.Form.Files;

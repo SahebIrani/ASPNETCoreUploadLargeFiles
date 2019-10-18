@@ -73,32 +73,5 @@ namespace Simple.Controllers
 
             return Ok();
         }
-
-        [HttpPost("/api/file")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
-        public IActionResult GetFile([FromServices] IHttpContextAccessor contextAccessor,
-         [FromServices] IWebHostEnvironment environment)
-        {
-            //save the file
-            var files = Request.Form.Files;
-            foreach (var file in files)
-            {
-                var memoryStream = new MemoryStream();
-                file.CopyTo(memoryStream);
-
-                var fileStream = System.IO.File.Create(
-                    $"{environment.WebRootPath}/images/background/{file.FileName}", (int)file.Length,
-                    FileOptions.None);
-                fileStream.Write(memoryStream.ToArray(), 0, (int)file.Length);
-
-                fileStream.Flush();
-                fileStream.Dispose();
-
-                memoryStream.Flush();
-                memoryStream.Dispose();
-            }
-
-            return Ok();
-        }
     }
 }

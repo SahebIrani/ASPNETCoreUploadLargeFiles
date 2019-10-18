@@ -95,11 +95,10 @@ namespace Simple
                 //https://github.com/aspnet/AspNetCore/issues/2711
                 //options.MultipartBodyLengthLimit = 4294967296;
 
-                options.ValueLengthLimit = int.MaxValue;
-                options.MultipartBodyLengthLimit = int.MaxValue;
-                options.MultipartHeadersLengthLimit = int.MaxValue;
-                options.MemoryBufferThreshold = int.MaxValue;
 
+                //options.ValueLengthLimit = int.MaxValue;
+                //options.MultipartBodyLengthLimit = int.MaxValue;
+                //options.MultipartHeadersLengthLimit = int.MaxValue;
             });
             //--</ set uploadsize large files >----
         }

@@ -98,8 +98,6 @@ namespace Simple
                 options.ValueLengthLimit = int.MaxValue;
                 options.MultipartBodyLengthLimit = int.MaxValue;
                 options.MultipartHeadersLengthLimit = int.MaxValue;
-                options.MemoryBufferThreshold = int.MaxValue;
-
             });
             //--</ set uploadsize large files >----
         }
